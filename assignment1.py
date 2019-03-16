@@ -73,7 +73,7 @@ for i in range(len(onelist)):
 print("Bigram: ", bigrams)
 
 for i in range(len(onelist)):
-    if t < i - 1:
+    if t < i - 2:
         trigrams.append((onelist[t], onelist[t+1], onelist[t+2]))
         t += 2
 print("Trigram: ", trigrams)
