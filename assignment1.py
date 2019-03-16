@@ -92,10 +92,3 @@ def probability(a, b):
 ff = len(onelist)
 print(ff)
 #probability()
-
-
-bigrams= nltk.ngrams(onelist, 2)
-t = []
-trigrams = nltk.ngrams(onelist, 3)
-t.append(trigrams)
-print(trigrams,"trrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
