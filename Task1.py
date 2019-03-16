@@ -1,27 +1,36 @@
 import nltk
 import os
-
-from nltk import RegexpTokenizer
+from nltk import RegexpTokenizer, Counter
 from nltk.corpus import wordnet
 import re
 from nltk.stem.porter import PorterStemmer
 from nltk.stem.lancaster import LancasterStemmer
 from nltk.stem import SnowballStemmer
 from nltk.stem import WordNetLemmatizer
+'''
+from docx import Document
 
-#nltk.download('wordnet')
-#nltk.download('averaged_perceptron_tagger')
-#nltk.download('punkt')
+document = Document()
+document.save('mn.docx')
 
-file=open('labtask1.txt','r')
-f = file.read();
+import docx
+
+doc = docx.Document('mn.docx')
+fullText = []
+for para in doc.paragraphs:
+    fullText.append(para.text)
+print(fullText)'''
+file=open('C:\/Users\Mariam\Desktop\data.txt','r')
+f = file.read()
 token2 = nltk.sent_tokenize(f)
 print(token2)
 token3=[]
 for i in token2:
     token = nltk.word_tokenize(i)
     token = re.split('[-_,.\s ]', f)
+    token = re.split('/d',f)
     token3.append(token)
+print("mariam")
 print (token3)
 words = re.split('[-_,.\s ]', f)
 print(words)
