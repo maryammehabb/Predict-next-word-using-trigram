@@ -3,7 +3,7 @@ import nltk
 import re
 
 
-file=open('C:\/Users\Mariam\Desktop\data.txt','r')
+file=open('data.txt',encoding="utf8")
 f = file.read()
 
 
@@ -83,9 +83,9 @@ def test(x, y, dictionary):
             thirdword = c
     print(x, y, thirdword)
     print(p)
-    
+
 
 t = trigam()
 f = frequency(t)
-test("want",  "to", f)
+test("التعليم",  "المرئي", f)
 
