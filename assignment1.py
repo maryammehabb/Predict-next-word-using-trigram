@@ -20,8 +20,7 @@ words2 = []
 withoutpunc = []
 onelist = []
 trigrams = []
-bigrams = []
-onedic, twodic, threedic, dictionary = {}, {}, {}, {}
+threedic, dictionary = {}, {}
 sentence = nltk.sent_tokenize(f)
 #print("Sentences: ", sentence)
 
@@ -45,15 +44,17 @@ for x in words2:
     for y in x:
         onelist.append(y)
 #print("onelist : ",onelist)
+print(len(onelist))
 
 
 def trigam():
-    t=0
+    length=0
     for i in range(len(onelist)):
-        if t < i - 2:
-            trigrams.append((onelist[t], onelist[t+1], onelist[t+2]))
-            t += 2
-    print("Trigram: ", len(trigrams))
+        if length < i - 2:
+            trigrams.append((onelist[length], onelist[length+1], onelist[length+2]))
+            length += 2
+    #print("Trigram: ", len(trigrams))
+    #print(trigrams)
     return trigrams
 
 
@@ -69,6 +70,7 @@ def frequency(trigrams):
         dictionary[(x, y, z)] = threedic[(x, y, z)]/count
     #print("three : ", threedic, len(threedic))
     #print(dictionary)
+    #print(count)
     return dictionary
 
 
