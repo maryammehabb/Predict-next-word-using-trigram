@@ -58,8 +58,11 @@ def trigam():
     return trigrams
 
 
-def frequency(trigrams):
+def frequency(firstword, secondword,  trigrams):
     count = 0
+    p = -1
+    thirdword = ""
+
     for (x, y, z) in trigrams:
         if (x, y, z) in threedic:
             threedic[(x, y, z)] += 1
@@ -71,23 +74,16 @@ def frequency(trigrams):
     #print("three : ", threedic, len(threedic))
     #print(dictionary)
     #print(count)
-    return dictionary
-
-
-def test(x, y, dictionary):
-    thirdword = ""
-    p = -1
-    for (a, b, c) in dictionary:
-        if a != x or b != y:
+    for (x, y, z) in dictionary:
+        if x != firstword or y != secondword:
             continue
-        if dictionary[(a, b, c)] > p:
-            p = dictionary[(a, b, c)]
-            thirdword = c
-    print(x, y, thirdword)
+        if dictionary[(x, y, z)] > p:
+            p = dictionary[(x, y, z)]
+            thirdword = z
+    print(firstword, secondword, thirdword)
     print(p)
 
 
 t = trigam()
-f = frequency(t)
-test("التعليم",  "المرئي", f)
+frequency("المتوسط",  "الحسابي", t)
 
