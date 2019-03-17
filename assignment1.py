@@ -1,37 +1,10 @@
 from string import punctuation
-from collections import Counter
 import nltk
 import re
 
 
-#convert from docx to txt
-''''
-from docx import Document
-
-document = Document()
-document.save('mn.docx')
-
-import docx
-
-doc = docx.Document('mn.docx')
-fullText = []
-for para in doc.paragraphs:
-    fullText.append(para.text)
-print(fullText)'''
-
 file=open('C:\/Users\Mariam\Desktop\data.txt','r')
 f = file.read()
-sentence = nltk.sent_tokenize(f)
-print("Sentences: ")
-print(sentence)
-words = []
-words2 = []
-for i in sentence:
-    #word = nltk.word_tokenize(i)
-    word = re.sub(r'\d+', '', i)
-    words.append(word)
-print("Words without numbers: ")
-print(word)
 
 
 def removepunc(text):
@@ -42,10 +15,23 @@ def removepunc(text):
     return result
 
 
+words = []
+words2 = []
 withoutpunc = []
+onelist = []
+trigrams = []
+bigrams = []
+onedic, twodic, threedic, dictionary = {}, {}, {}, {}
+sentence = nltk.sent_tokenize(f)
+#print("Sentences: ", sentence)
+
+for i in sentence:
+    word = re.sub(r'\d+', '', i)
+    words.append(word)
+#print("Words without numbers: ", word)
+
 for i in range(len(words)):
     x = removepunc(words[i])
-    print(x)
     withoutpunc.append(x)
 print("Words without punctuation: ")
 print(withoutpunc)
@@ -53,42 +39,53 @@ print(withoutpunc)
 for i in withoutpunc:
     word = nltk.word_tokenize(i)
     words2.append(word)
-print("Words: ")
-print(words2)
+#print("Words: ", words2)
 
-onelist = []
 for x in words2:
     for y in x:
         onelist.append(y)
-print("onelist : ",onelist)
-
-trigrams = []
-bigrams = []
-t = 0
-b = 0
-for i in range(len(onelist)):
-    if b < i - 1:
-        bigrams.append((onelist[b], onelist[b+1]))
-        b += 1
-print("Bigram: ", bigrams)
-
-for i in range(len(onelist)):
-    if t < i - 2:
-        trigrams.append((onelist[t], onelist[t+1], onelist[t+2]))
-        t += 2
-print("Trigram: ", trigrams)
-
-trigram = Counter(trigrams)
-print(trigram)
-countwords = Counter(onelist)
-print(countwords)
+#print("onelist : ",onelist)
 
 
-def probability(a, b):
-    p1 = a*b
-    p2 = p1 / a
+def trigam():
+    t=0
+    for i in range(len(onelist)):
+        if t < i - 2:
+            trigrams.append((onelist[t], onelist[t+1], onelist[t+2]))
+            t += 2
+    print("Trigram: ", len(trigrams))
+    return trigrams
 
 
-ff = len(onelist)
-print(ff)
-#probability()
+def frequency(trigrams):
+    count = 0
+    for (x, y, z) in trigrams:
+        if (x, y, z) in threedic:
+            threedic[(x, y, z)] += 1
+            count += 1
+        else:
+            threedic[(x, y, z)] = 1
+            count += 1
+        dictionary[(x, y, z)] = threedic[(x, y, z)]/count
+    #print("three : ", threedic, len(threedic))
+    #print(dictionary)
+    return dictionary
+
+
+def test(x, y, dictionary):
+    thirdword = ""
+    p = -1
+    for (a, b, c) in dictionary:
+        if a != x or b != y:
+            continue
+        if dictionary[(a, b, c)] > p:
+            p = dictionary[(a, b, c)]
+            thirdword = c
+    print(x, y, thirdword)
+    print(p)
+    
+
+t = trigam()
+f = frequency(t)
+test("want",  "to", f)
+
